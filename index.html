@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="Windows-1252">
+<meta charset="UTF-8">
 <title>Milasudril on GitHub</title>
 
 <script type="text/javascript"><!--
@@ -9,7 +9,7 @@ var ghdata;
 function loadGHData(obj)
 	{
 	ghdata=obj;
-	console.log(ghdata);
+	console.log(ghdata.data);
 	}
 
 //--></script>
@@ -23,7 +23,15 @@ type="text/javascript"><!--
 <body>
 
 <h1 class="title">Milasudril on GitHub</h1>
-
+<div id="content">
+<div id="blog">
+<script type="text/javascript"><!--
+var req=new XMLHttpRequest();
+req.open('GET','blog.html',false);
+req.send();
+document.write(req.responseText);
+//--></script>
+</div>
 <script type="text/javascript"><!--
 function activitiesPrint()
 	{
@@ -38,8 +46,18 @@ function activitiesPrint()
 	document.write("<section id=\"projbox\">");
 	document.write("<h2>Latest projects</h2>");
 	document.write("<ul>");
-	for(var i=0;i<Math.min(x.length,8);++i)
-		{document.write("<li><a href=\""+x[i].html_url+"\">"+x[i].name+"</a></li>");}
+	var j=0;
+	for(var i=0;i<x.length && j<8;++i)
+		{
+		if(x[i].name!="milasudril.github.io")
+			{
+			var url=x[i].html_url;
+			if(x[i].homepage!=null)
+				{url=x[i].homepage;}
+			document.write("<li><a href=\""+url+"\">"+x[i].name+"</a></li>");
+			++j;
+			}
+		}
 	document.write("</ul>");
 	document.write("</section>");
 	}
@@ -47,16 +65,13 @@ function activitiesPrint()
 activitiesPrint();
 //-->
 </script>
-<section id="blog" data-holder-ipsum-mode="children"
-	data-holder-ipsum-children-count="3"
-	data-holder-ipsum-children-element="p"
-	data-holder-ipsum-children-mode="sentence"
-	>
-</section>
-
+</div>
 
 <script type="text/javascript" src="holder-ipsum.js"><!--
 //-->
 </script>
+<footer>
+<p>© Torbjörn Rathsman 2014</p>
+</footer>
 </body>
 </html>
