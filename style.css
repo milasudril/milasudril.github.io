@@ -1,0 +1,64 @@
+body
+	{
+	font-size:16px;
+	font-family:"Monotype Corsiva"
+	}
+
+h1,h2,h3,h4
+	{
+	font-family:"Blackadder ITC";
+	font-weight:normal;
+	color:#0080ff;
+	}
+
+h1.title
+	{
+	font-size: 1.9em;
+	border-bottom: 2px solid #ffc000;
+	}
+
+h1
+	{
+	font-size: 1.58em
+	}
+
+h2
+	{
+	font-size: 1.32em
+	}
+
+h3
+	{
+	font-size: 1.10em
+	}
+
+h4
+	{
+	font-size:1em
+	}
+
+p,ol,ul,h1,h2,h3,h4
+	{
+	margin-top:0px;
+	margin-bottom:8px;
+	}
+
+h1,h2,h3
+	{
+	margin-top:16px
+	}
+
+a,a:hover,a:visited,a:active
+	{
+	text-decoration:none;
+	color:#60c000
+	}
+
+#projbox
+	{
+	width: 25%;
+	float: right;
+	border-left: 2px solid #ff80c0;
+	padding-left: 16px;
+	margin-left: 16px;
+	}

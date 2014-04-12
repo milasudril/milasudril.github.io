@@ -1,43 +1,62 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-<meta http-equiv="Content-Type"
-content="text/html; charset=iso-8859-1">
-<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<meta charset="Windows-1252">
 <title>Milasudril on GitHub</title>
+
+<script type="text/javascript"><!--
+var ghdata;
+function loadGHData(obj)
+	{
+	ghdata=obj;
+	console.log(ghdata);
+	}
+
+//--></script>
+<script src="https://api.github.com/users/milasudril/repos?callback=loadGHData"
+type="text/javascript"><!--
+// --></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
 
-<h1>Milasudril on GitHub</h1>
-
-<h2>Repositories</h2>
+<h1 class="title">Milasudril on GitHub</h1>
 
 <script type="text/javascript"><!--
-
-function compare(a,b)
+function activitiesPrint()
 	{
-	if(a.updated_at<b.updated_at)
-		{return 1;}
-	else
-		{return -1;}
-	}
-
-function dataProcess(obj)
-	{
-	var x=obj.data;
-	x.sort(compare);
+	var x=ghdata.data;
+	x.sort(function compare(a,b)
+		{
+		if(a.updated_at<b.updated_at)
+			{return 1;}
+		else
+			{return -1;}
+		});
+	document.write("<section id=\"projbox\">");
+	document.write("<h2>Latest projects</h2>");
 	document.write("<ul>");
 	for(var i=0;i<Math.min(x.length,8);++i)
-		{document.write("<li>"+x[i].name+"</li>");}
+		{document.write("<li><a href=\""+x[i].html_url+"\">"+x[i].name+"</a></li>");}
 	document.write("</ul>");
+	document.write("</section>");
 	}
 
-//--></script>
-<script src="https://api.github.com/users/milasudril/repos?callback=dataProcess"
-type="text/javascript"><!--
-// --></script>
+activitiesPrint();
+//-->
+</script>
+<section id="blog" data-holder-ipsum-mode="children"
+	data-holder-ipsum-children-count="3"
+	data-holder-ipsum-children-element="p"
+	data-holder-ipsum-children-mode="sentence"
+	>
+</section>
 
-<p>&nbsp;</p>
+
+<script type="text/javascript" src="holder-ipsum.js"><!--
+//-->
+</script>
 </body>
 </html>
