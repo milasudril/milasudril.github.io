@@ -11,6 +11,33 @@ content="text/html; charset=iso-8859-1">
 
 <h1>Milasudril on GitHub</h1>
 
+<h2>Repositories</h2>
+
+<script type="text/javascript"><!--
+
+function compare(a,b)
+	{
+	if(a.updated_at<b.updated_at)
+		{return 1;}
+	else
+		{return -1;}
+	}
+
+function dataProcess(obj)
+	{
+	var x=obj.data;
+	x.sort(compare);
+	document.write("<ul>");
+	for(var i=0;i<Math.min(x.length,8);++i)
+		{document.write("<li>"+x[i].name+"</li>");}
+	document.write("</ul>");
+	}
+
+//--></script>
+<script src="https://api.github.com/users/milasudril/repos?callback=dataProcess"
+type="text/javascript"><!--
+// --></script>
+
 <p>&nbsp;</p>
 </body>
 </html>
