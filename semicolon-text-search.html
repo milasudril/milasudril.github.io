@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Semicolon Text Search</title>
+<script type="text/javascript"><!--
+
+var CLIENT_ID = '82284551231-8c8g8vdui3vadtipise76q0p1o7oougm.apps.googleusercontent.com';
+
+var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'
+  	,'https://www.googleapis.com/auth/drive.readonly'];
+
+/** Check if current user has authorized this application.
+*/
+function checkAuth()
+	{
+	gapi.auth.authorize(
+		{
+		'client_id': CLIENT_ID,
+		'scope': SCOPES,
+		'immediate': true
+		}, handleAuthResult);
+	}
+
+/**
+* Handle response from authorization server.
+*
+* @param {Object} authResult Authorization result.
+*/
+function handleAuthResult(authResult)
+	{
+	var authorizeDiv = document.getElementById('authorize-div');
+	if (authResult && !authResult.error)
+		{
+	// Hide auth UI, then load client library.
+		authorizeDiv.style.display = 'none';
+		loadDriveApi();
+		}
+	else
+		{
+	// Show auth UI, allowing the user to initiate authorization by
+	// clicking authorize button.
+		authorizeDiv.style.display = 'block';
+		}
+	}
+
+/**
+* Initiate auth flow in response to user clicking authorize button.
+*
+* @param {Event} event Button click event.
+*/
+function handleAuthClick(event)
+	{
+	gapi.auth.authorize({client_id: CLIENT_ID, scope: SCOPES, immediate: false},handleAuthResult);
+	return false;
+	}
+
+/**
+* Load Drive API client library.
+*/
+function loadDriveApi()
+	{
+	gapi.client.load('drive', 'v2', applicationStart);
+	}
+	
+function filenameDisplay(filename)
+	{
+	document.getElementById('filename').textContent=filename;
+	}
+
+function descriptionDisplay(description)
+	{
+	document.getElementById('description').textContent=description;
+	}
+	
+var g_data=new Array();
+var g_filter=new Array();
+	
+function fileContentProcess(content)
+	{
+	var lines=content.split('\n');
+	var header=lines[0].split(';');
+	var html_str='';
+	var html_str_res_header='<thead><tr><th>#</th>';
+	for(var k=0;k<header.length;++k)
+		{
+		html_str+='<tr><th>'+header[k]+'</th><td><input type="text" id="q_'+k+'" '
+			+ 'onblur="conditionSet('+k+')"></td></tr>';
+		html_str_res_header+='<th>'+header[k]+'</th>';
+		g_filter[k]='';
+		}
+	html_str_res_header+='</tr></thead><tbody id="table_content"></tbody>';
+	document.getElementById('dataFilter').innerHTML=html_str;
+	document.getElementById('results').innerHTML=html_str_res_header;
+	for(var k=1;k<lines.length;++k)
+		{
+		g_data[k-1]=lines[k].split(';');
+		if(g_data[k-1].length!=header.length)
+			{throw 'Line ' + k + ' has wrong number of columns';}
+		}
+	dataShow();
+	document.getElementById('q_0').focus();
+	}
+	
+function conditionSet(k)
+	{
+	g_filter[k]=document.getElementById('q_'+k).value.toLowerCase();
+	dataShow();
+	}
+	
+function rowShow(k)
+	{
+	for(var l=0;l<g_data[k].length;++l)
+		{
+		if(g_data[k][l].toLowerCase().indexOf(g_filter[l])==-1
+			&& g_filter[l]!=="")
+			{
+			return false;
+			}
+		}
+	return true;
+	}
+	
+function dataShow()
+	{
+	box=document.getElementById('table_content');
+	while (box.firstChild)
+		{
+  		box.removeChild(box.firstChild);
+		}
+	for(var k=0;k<g_data.length;++k)
+		{
+		if(rowShow(k))
+			{
+			var row=document.createElement('tr');
+			td=document.createElement('td');
+			td.textContent=(k+1);
+			row.appendChild(td);
+			for(var l=0;l<g_data[k].length;++l)
+				{
+				td=document.createElement('td');
+				td.textContent=g_data[k][l];
+				row.appendChild(td);
+				}
+			box.appendChild(row);
+			}
+		}
+	}
+	
+function fileContentLoad(url)
+	{
+	var accessToken=gapi.auth.getToken().access_token;
+	var request=new XMLHttpRequest();
+	request.open('GET',url);
+	request.setRequestHeader('Authorization','Bearer ' + accessToken);
+	request.onload=function(e)
+		{
+		if(request.readyState===4)
+			{
+			if(request.status===200)
+				{
+				fileContentProcess(request.responseText);
+				}
+			}
+		}
+
+	request.send();
+	}
+
+function fileLoad(fileId)
+	{
+	var request = gapi.client.drive.files.get({'fileId': fileId});
+	request.execute(function(resp)
+		{
+		filenameDisplay(resp.title);
+		descriptionDisplay(resp.description);
+		fileContentLoad(resp.downloadUrl);
+		});
+	}
+
+function applicationStart()
+	{
+	document.getElementById('headerblock').style.display='block';
+	document.getElementById('mainblock').style.display='block';
+	
+	document.getElementById('file_id').value=location.search.substring(1);
+	if(document.getElementById('file_id').value!=="")
+		{fileLoad(document.getElementById('file_id').value);}
+	else
+		{document.getElementById('file_id').focus();}
+	}
+
+//-->
+</script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth">
+</script>
+</head>
+<body>
+<h1>Semicolon Text Search</h1>
+<header id="headerblock" style="display: none">	
+<p id="searchBox">
+Search file id: <input type="text" id="file_id" onblur="fileLoad(document.getElementById('file_id').value)">
+</p>
+
+<h2 id="filename" style="display: none">No file loaded</h2>
+<p id="description">Enter a file id in the textbox above.</p>
+
+<h2>Search form</h2>
+<table id="dataFilter">
+</table>
+</header>
+
+<main id="mainblock" style="display: none">
+<h2>Search results</h2>
+<table id="results">
+</table>
+</main>
+
+<aside id="authorize-div" style="display: none">
+	<p>Click on "Authorize" to access the Drive</p>
+	<button id="authorize-button" onclick="handleAuthClick(event)">
+        Authorize
+	</button>
+</aside>
+
+</body>
+</html>
