@@ -93,6 +93,7 @@ function fileContentProcess(content)
 	html_str_res_header+='</tr></thead><tbody id="table_content"></tbody>';
 	document.getElementById('dataFilter').innerHTML=html_str;
 	document.getElementById('results').innerHTML=html_str_res_header;
+	g_data.length=0;
 	for(var k=1;k<lines.length;++k)
 		{
 		g_data[k-1]=lines[k].split(';');
