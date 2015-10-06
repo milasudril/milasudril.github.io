@@ -76,18 +76,19 @@ function descriptionDisplay(description)
 	
 var g_data=new Array();
 var g_filter=new Array();
+var g_header=new Array();
 	
 function fileContentProcess(content)
 	{
 	var lines=content.split('\n');
-	var header=lines[0].split(';');
+	g_header=lines[0].split(';');
 	var html_str='';
 	var html_str_res_header='<thead><tr><th>#</th>';
-	for(var k=0;k<header.length;++k)
+	for(var k=0;k<g_header.length;++k)
 		{
-		html_str+='<tr><th>'+header[k]+'</th><td><input type="text" id="q_'+k+'" '
+		html_str+='<tr><th>'+g_header[k]+'</th><td><input type="text" id="q_'+k+'" '
 			+ 'onblur="conditionSet('+k+')"></td></tr>';
-		html_str_res_header+='<th>'+header[k]+'</th>';
+		html_str_res_header+='<th>'+g_header[k]+'</th>';
 		g_filter[k]='';
 		}
 	html_str_res_header+='</tr></thead><tbody id="table_content"></tbody>';
@@ -97,7 +98,7 @@ function fileContentProcess(content)
 	for(var k=1;k<lines.length;++k)
 		{
 		g_data[k-1]=lines[k].split(';');
-		if(g_data[k-1].length!=header.length)
+		if(g_data[k-1].length!=g_header.length)
 			{throw 'Line ' + k + ' has wrong number of columns';}
 		}
 	dataShow();
@@ -126,7 +127,7 @@ function rowShow(k)
 function valueUpdate(row,col,val_new)
 	{
 	console.log('(' + row +',' + col+')  '+val_new);
-//	g_data[row][col]=val_new;
+	g_data[row][col]=val_new;
 	}
 	
 function dataShow()
@@ -148,7 +149,7 @@ function dataShow()
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
-				td.addEventListener('click', function(k,l)
+				td.addEventListener('blur', function(k,l)
 					{
 					valueUpdate(k,l,this.textContent);
 					}.bind(td,k,l)
