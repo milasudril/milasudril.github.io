@@ -148,10 +148,10 @@ function dataShow()
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
-				td.addEventListener('blur', function()
+				td.addEventListener('blur', function(k,l)
 					{
 					valueUpdate(k,l,this.textContent);
-					}.bind(k,l,this)
+					}.bind(this,k,l)
 					, false);
 				td.textContent=g_data[k][l];
 				row.appendChild(td);
