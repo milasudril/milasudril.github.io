@@ -8,7 +8,8 @@
 var CLIENT_ID = '82284551231-8c8g8vdui3vadtipise76q0p1o7oougm.apps.googleusercontent.com';
 
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'
-  	,'https://www.googleapis.com/auth/drive.readonly'];
+  	,'https://www.googleapis.com/auth/drive.readonly'
+  	,'https://www.googleapis.com/auth/drive.file'];
 
 /** Check if current user has authorized this application.
 */
@@ -205,6 +206,31 @@ function applicationStart()
 	else
 		{document.getElementById('file_id').focus();}
 	}
+	
+function fileSave(fileId)
+	{
+	var request_body=g_header.join(';');
+	for(var k=0;k<g_data.length;++k)
+		{
+		var row=g_data[k].join(';');
+		request_body+=row+'\r\n';
+		}
+
+	var request=gapi.client.request(
+		{
+		'path': '/upload/drive/v2/files/' + fileId
+		,'method': 'PUT'
+		,'params': {'uploadType': 'media'}
+		,'headers':{'Content-Type': 'text/plain'}
+		,'body':request_body
+		});
+	
+	request.execute(function()
+		{
+		fileLoad(this)
+		}.bind(fileId)
+		);
+	}
 
 //-->
 </script>
@@ -227,6 +253,7 @@ MathJax.Hub.Config({
 <header id="headerblock" style="display: none">	
 <p id="searchBox">
 Search file id: <input type="text" id="file_id" onblur="fileLoad(document.getElementById('file_id').value)">
+<input type="button" id="file_save" onclick="fileSave(document.getElementById('file_id').value)">
 </p>
 
 <h2 id="filename">No file loaded</h2>
