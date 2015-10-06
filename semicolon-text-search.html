@@ -208,7 +208,7 @@ function applicationStart()
 	
 function fileSave(fileId)
 	{
-	var request_body=g_header.join(';');
+	var request_body=g_header.join(';')+'\r\n';
 	for(var k=0;k<g_data.length;++k)
 		{
 		var row=g_data[k].join(';');
