@@ -97,9 +97,12 @@ function fileContentProcess(content)
 	g_data.length=0;
 	for(var k=1;k<lines.length;++k)
 		{
-		g_data[k-1]=lines[k].split(';');
-		if(g_data[k-1].length!=g_header.length)
-			{throw 'Line ' + k + ' has wrong number of columns';}
+		if(lines[k]!=='')
+			{
+			g_data[k-1]=lines[k].split(';');
+			if(g_data[k-1].length!=g_header.length)
+				{throw 'Line ' + k + ' has wrong number of columns';}
+			}
 		}
 	dataShow();
 	document.getElementById('q_0').focus();
