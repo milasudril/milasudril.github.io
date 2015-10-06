@@ -146,12 +146,12 @@ function dataShow()
 			var row=document.createElement('tr');
 			td=document.createElement('td');
 			td.textContent=(k+1);
-			td.className='interactive';
 			row.appendChild(td);
 			for(var l=0;l<g_data[k].length;++l)
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
+				td.className='interactive';
 				td.addEventListener('blur', function(k,l)
 					{
 					valueUpdate(k,l,this.textContent);
