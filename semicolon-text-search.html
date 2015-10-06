@@ -123,6 +123,12 @@ function rowShow(k)
 	return true;
 	}
 	
+function valueUpdate(row,col,val_new)
+	{
+	console.write(val_new);
+	g_data[k][l]=val_new;
+	}
+	
 function dataShow()
 	{
 	box=document.getElementById('table_content');
@@ -142,6 +148,11 @@ function dataShow()
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
+				td.addEventListener('blur', function()
+					{
+					valueUpdate(k,l,this.innerText);
+					}
+					, false);
 				td.textContent=g_data[k][l];
 				row.appendChild(td);
 				}
