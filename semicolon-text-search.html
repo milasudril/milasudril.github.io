@@ -136,7 +136,7 @@ function dataShow()
 		{
   		box.removeChild(box.firstChild);
 		}
-	for(var k=0;k<g_data.length;++k)
+	for(let k=0;k<g_data.length;++k)
 		{
 		if(rowShow(k))
 			{
@@ -144,7 +144,7 @@ function dataShow()
 			td=document.createElement('td');
 			td.textContent=(k+1);
 			row.appendChild(td);
-			for(var l=0;l<g_data[k].length;++l)
+			for(let l=0;l<g_data[k].length;++l)
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
