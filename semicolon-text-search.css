@@ -1,0 +1,25 @@
+td,th
+	{
+	vertical-align: top;
+	padding-bottom: 0.5em;
+	}
+
+th.horizontal
+	{
+	text-align:left
+	}
+
+.interactive
+	{
+	color:#000055
+	}
+
+.interactive:hover
+	{
+	color:#0000aa
+	}
+
+.interactive:active
+	{
+	color:#ff0000
+	}
