@@ -19,7 +19,8 @@ th.horizontal
 	color:#0000ff
 	}
 
-.interactive:active
+.interactive:focus
 	{
 	color:#ff0000
+	font-weight:bold;
 	}
