@@ -126,7 +126,7 @@ function rowShow(k)
 function valueUpdate(row,col,val_new)
 	{
 	console.log(val_new);
-	g_data[k][l]=val_new;
+	g_data[row][col]=val_new;
 	}
 	
 function dataShow()
@@ -150,7 +150,7 @@ function dataShow()
 				td.contentEditable=true;
 				td.addEventListener('blur', function()
 					{
-					valueUpdate(k,l,this.innerText);
+					valueUpdate(k,l,td.innerText);
 					}
 					, false);
 				td.textContent=g_data[k][l];
