@@ -141,6 +141,7 @@ function dataShow()
 			for(var l=0;l<g_data[k].length;++l)
 				{
 				td=document.createElement('td');
+				td.contentEditable=true;
 				td.textContent=g_data[k][l];
 				row.appendChild(td);
 				}
