@@ -126,7 +126,7 @@ function rowShow(k)
 function valueUpdate(row,col,val_new)
 	{
 	console.log('(' + row +',' + col+')  '+val_new);
-	g_data[row][col]=val_new;
+//	g_data[row][col]=val_new;
 	}
 	
 function dataShow()
@@ -148,10 +148,10 @@ function dataShow()
 				{
 				td=document.createElement('td');
 				td.contentEditable=true;
-				td.addEventListener('blur', function(k,l)
+				td.addEventListener('click', function(k,l)
 					{
 					valueUpdate(k,l,this.textContent);
-					}.bind(this,k,l)
+					}.bind(td,k,l)
 					, false);
 				td.textContent=g_data[k][l];
 				row.appendChild(td);
