@@ -211,11 +211,11 @@ function applicationStart()
 	
 function fileSave(fileId)
 	{
-	var request_body=g_header.join(';')+'\r\n';
+	var request_body=g_header.join(';')+'\n';
 	for(var k=0;k<g_data.length;++k)
 		{
 		var row=g_data[k].join(';');
-		request_body+=row+'\r\n';
+		request_body+=row+'\n';
 		}
 
 	var request=gapi.client.request(
