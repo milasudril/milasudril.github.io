@@ -130,6 +130,7 @@ function rowShow(k)
 function valueUpdate(row,col,val_new)
 	{
 	g_data[row][col]=val_new;
+	fileSave(document.getElementById('file_id').value)
 	}
 	
 function dataShow()
