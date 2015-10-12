@@ -1,3 +1,8 @@
+body
+	{
+	font-size: 80%;
+	}
+
 p, td, th, h1, h2, h3, h4
 	{
 	font-family: Verdana, sans-serif;
