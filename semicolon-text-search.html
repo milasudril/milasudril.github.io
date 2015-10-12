@@ -63,10 +63,13 @@ function loadDriveApi()
 	gapi.client.load('drive', 'v2', applicationStart);
 	}
 	
+var g_filename='No file loaded';
+	
 function filenameDisplay(filename)
 	{
 	document.getElementById('filename').textContent=filename;
 	document.title='Semicolon Text Search - '+filename;
+	g_filename=filename;
 	}
 
 function descriptionDisplay(description)
@@ -130,7 +133,8 @@ function rowShow(k)
 function valueUpdate(row,col,val_new)
 	{
 	g_data[row][col]=val_new;
-	fileSave(document.getElementById('file_id').value)
+	document.title='Semicolon Text Search - '+g_filename + ' [Unsaved]';
+	fileSave(document.getElementById('file_id').value);
 	}
 	
 function dataShow()
@@ -230,7 +234,7 @@ function fileSave(fileId)
 	
 	request.execute(function()
 		{
-		fileLoad(this)
+		document.title='Semicolon Text Search - '+g_filename;
 		}.bind(fileId)
 		);
 	}
