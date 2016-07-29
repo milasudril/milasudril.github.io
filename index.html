@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="cjSwFU-l4ZUb5VWiwES1RTPvejAjVEDArR5C-lVKF2c">
-<title>Milasudril on GitHub</title>
+<title>Torbjörn Rathsman</title>
 
 <script type="text/javascript"><!--
 var ghdata;
@@ -17,23 +17,49 @@ function loadGHData(obj)
 <script src="https://api.github.com/users/milasudril/repos?callback=loadGHData"
 type="text/javascript"><!--
 // --></script>
-<link rel="stylesheet" type="text/css" href="style.css">
-
+<link rel="stylesheet" type="text/css" href="layout.css">
+<link rel="stylesheet" type="text/css" href="fonts.css">
 </head>
 
 <body>
+<header>
+<h1 class="title">Torbjörn Rathsman</h1>
+<nav>
+<ul>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact information</a></li>
+</ul></nav></header>
+<main>
+<section>
+<h2 id="projects">Projects</h2>
+<h3>Maike</h3>
+<p>Maike is a build system based on scanning of source files. To construct the dependency graph, Maike uses embedded JSON data to control the compilation process. </p>
+<ul>
+<li><a href="http://github.com/milasudril/maike#maike">An introduction</a></li>
+<li><a href="http://github.com/milasudril/maike">GitHub project page</a></li>
+</ul>
 
-<h1 class="title">Milasudril on GitHub</h1>
-<div id="content">
-<div id="blog">
+<h3>Snowflake generation toolkit</h3>
+<p>This is my Master's Thesis project. The toolkit contains code that deforms, rotates, and merges prototype geometry into snowflakes.</p>
+
+<ul><li>
+<a href="http://publications.lib.chalmers.se/records/fulltext/234473/234473.pdf">The Master's thesis</a></li>
+<li><a href="http://github.com/milasudril/snowflake-toolkit">GitHub project page</a></li>
+</ul>
+
+<h3>Anja</h3>
+<p>Anja is a sample player designed for live sound effect playback. Anja makes it possible to assign sound effects to the keys of the computer keyboard. Anja also featrues a channel mixer with 16 channels, making it possible to fade a group of sound effects together. The backend of Anja is JACK, the low-latency audio server. The session file format of Anja is in a formalized text format, optimized for human readability. </p>
+<ul><li><a href="http://milasudril.github.io/anja">User's guide</a></li>
+<li><a href="http://github.com/milasudril/anja">GitHub project page</a></li>
+</ul>
+</section>
+<section>
+<h2 id="contact">Contact information</h2>
+<ul><li><a href="https://www.linkedin.com/in/torbj%C3%B6rn-rathsman-00a571a4">LinkedIn</a></li></ul>
+</section>
+</main>
 <script type="text/javascript"><!--
-var req=new XMLHttpRequest();
-req.open('GET','blog.html',false);
-req.send();
-document.write(req.responseText);
-//--></script>
-</div>
-<script type="text/javascript"><!--
+
 function activitiesPrint()
 	{
 	var x=ghdata.data;
@@ -44,7 +70,7 @@ function activitiesPrint()
 		else
 			{return -1;}
 		});
-	document.write("<section id=\"projbox\">");
+	document.write("<aside id=\"projbox\">");
 	document.write("<h2>Latest projects</h2>");
 	document.write("<ul>");
 	var j=0;
@@ -60,19 +86,15 @@ function activitiesPrint()
 			}
 		}
 	document.write("</ul>");
-	document.write("</section>");
+	document.write("</aside>");
 	}
 
-activitiesPrint();
+//activitiesPrint();
 //-->
 </script>
-</div>
 
-<script type="text/javascript" src="holder-ipsum.js"><!--
-//-->
-</script>
 <footer>
-<p>© Torbjörn Rathsman 2014</p>
+<p>© Torbjörn Rathsman 2016</p>
 </footer>
 </body>
 </html>

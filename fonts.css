@@ -1,0 +1,41 @@
+h1{font-size:30pt;text-align:center}
+
+h2{font-size:20.74pt;margin-bottom:40pt;margin-top:20pt}
+
+h3{font-size:14.4pt;margin-top:3.5ex;margin-bottom:2.3ex}
+
+h4{font-size:12pt;margin-top:3.25ex;margin-bottom:1.5ex}
+
+h5{font-size:11pt;margin-top:3.25ex;margin-bottom:1.5ex}
+
+h6{font-size:11pt;margin-top:0pt;margin-bottom:0pt; display:inline}
+
+p{font-size:11pt;margin-top:0pt;margin-bottom:0pt;text-indent:18pt}
+
+p,li,code,td,div{font-size:11pt;margin-top:0pt;margin-bottom:0pt}
+
+h1+p,h2+p,h3+p,h4+p,h5+p,p:first-of-type,li{text-indent:0pt}
+
+cite{font-style:normal}
+
+p.bibitem,table{text-indent:0pt;margin-top:1.25ex;margin-bottom:1.5ex}
+
+div.abstract{margin-top:2ex; font-style:italic}
+p.titlepage{font-size:14.4pt;text-align:center}
+span.fill{margin-right:18pt}
+
+ol,ul{padding-left:14pt;}
+nav{padding-right:0.05em;}
+
+h1,h2,h3,h4,h5,h6,p,li,td,th,div
+	{font-family:"Andika","Tahoma","Verdana","Comic Sans MS",Sans;}
+code,pre,kbd{font-family:"Inconsolata","Consolas",Monospace}
+pre > code,kbd,ui-button{font-size:10pt}
+div.listing,figure,titlepic,div.infobox_warning,div.infobox_info
+	{position:relative;width:calc(100% - 40pt);left:0px;margin-left:20pt;margin-top:3.25ex;margin-bottom:1.5ex}
+img{position:relative;width:100%}
+*{font-weight:normal}
+
+
+
+
