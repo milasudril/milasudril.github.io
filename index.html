@@ -1,22 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="cjSwFU-l4ZUb5VWiwES1RTPvejAjVEDArR5C-lVKF2c">
 <title>Torbjörn Rathsman</title>
-
-<script type="text/javascript"><!--
-var ghdata;
-function loadGHData(obj)
-	{
-	ghdata=obj;
-	console.log(ghdata.data);
-	}
-
-//--></script>
-<script src="https://api.github.com/users/milasudril/repos?callback=loadGHData"
-type="text/javascript"><!--
-// --></script>
 <link rel="stylesheet" type="text/css" href="layout.css">
 <link rel="stylesheet" type="text/css" href="fonts.css">
 <link rel="stylesheet" type="text/css" href="colors.css">
@@ -60,41 +47,6 @@ type="text/javascript"><!--
 <li><a href="http://personer.eniro.se/resultat/Torbj%C3%B6rn%20Rathsman">More information</a></ul>
 </section>
 </main>
-<script type="text/javascript"><!--
-
-function activitiesPrint()
-	{
-	var x=ghdata.data;
-	x.sort(function compare(a,b)
-		{
-		if(a.updated_at<b.updated_at)
-			{return 1;}
-		else
-			{return -1;}
-		});
-	document.write("<aside id=\"projbox\">");
-	document.write("<h2>Latest projects</h2>");
-	document.write("<ul>");
-	var j=0;
-	for(var i=0;i<x.length && j<8;++i)
-		{
-		if(x[i].name!="milasudril.github.io")
-			{
-			var url=x[i].html_url;
-			if(x[i].homepage!=null)
-				{url=x[i].homepage;}
-			document.write("<li><a href=\""+url+"\">"+x[i].name+"</a></li>");
-			++j;
-			}
-		}
-	document.write("</ul>");
-	document.write("</aside>");
-	}
-
-//activitiesPrint();
-//-->
-</script>
-
 <footer>
 <p>© Torbjörn Rathsman 2016</p>
 </footer>
