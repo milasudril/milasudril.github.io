@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>An intensity-preserving color-picker</title>
+<link rel="stylesheet" type="text/css" href="fonts.css">
+<style>
+#app{display:inline-grid; max-width:600px}
+#preview, #cal{width: 100%; color:rgb(155, 154, 154); text-align:center}
+td.dark{background-color:#000000; padding:2ex; font-size:1.5em}
+td.gray{background-color:rgb(155, 154, 154); padding:2ex; font-size:1.5em}
+td.light{background-color:#ffffff; padding:2ex; font-size:1.5em}
+td.red{background-color:#ff0000; padding:2ex; font-size:1.5em}
+td.blue{background-color:#0000ff; padding:2ex; font-size:1.5em}
+body{background-color:rgb(155, 154, 154)}
+</style>
+<script>
+function make_rgb_string(red, green, blue)
+{
+	return "rgb("+ red + ", " + green + ", " + blue + ")";
+}
+
+let blue_weight = 1.0;
+let red_weight = 1.0;
+
+function update_colors()
+{
+	const selected_red = document.getElementById("red").value/1024.0;
+	const selected_green = document.getElementById("green").value/1024.0;
+	const selected_blue = document.getElementById("blue").value/1024.0;
+
+	const denom = red_weight+ 1.0 + blue_weight;
+	const sum = 3.0*(red_weight*selected_red + selected_green + blue_weight*selected_blue)/denom;
+	const current_red = selected_red/sum;
+	const current_green = selected_green/sum;
+	const current_blue = selected_blue/sum;
+
+	document.getElementById("intensity").value = 3.0*(red_weight*current_red + current_green + blue_weight*current_blue)/denom;
+
+	document.getElementById("red").value = 1024.0*current_red;
+	document.getElementById("green").value = 1024.0*current_green;
+	document.getElementById("blue").value = 1024.0*current_blue;
+	document.getElementById("red_val").value = current_red;
+	document.getElementById("green_val").value = current_green;
+	document.getElementById("blue_val").value = current_blue;
+	document.getElementById("green").value = 1024.0*current_green;
+
+	const color_red = Math.floor(256*Math.pow(current_red, 1.0/2.2));
+	const color_green = Math.floor(255*Math.pow(current_green, 1.0/2.2));
+	const color_blue = Math.floor(255*Math.pow(current_blue, 1.0/2.2));
+
+	document.getElementById("red_gamma_val").value = color_red;
+	document.getElementById("green_gamma_val").value = color_green;
+	document.getElementById("blue_gamma_val").value = color_blue;
+
+	document.getElementById("preview").style.color = make_rgb_string(color_red, color_green, color_blue);
+}
+
+function update_red_weight()
+{
+	const val = document.getElementById("red_weight").value/1024;
+	const corrected_val = Math.floor(256*Math.pow(val, 1.0/2.2));
+	document.getElementById("cal_red").style.color = make_rgb_string(0, corrected_val, 0);
+	document.getElementById("red_weight_val").value = val;
+	red_weight = val;
+	update_colors();
+}
+
+function update_blue_weight()
+{
+	const val = document.getElementById("blue_weight").value/1024;
+	const corrected_val = Math.floor(256*Math.pow(val, 1.0/2.2))
+	document.getElementById("cal_blue").style.color = make_rgb_string(0, corrected_val, 0);
+	document.getElementById("blue_weight_val").value = val;
+	blue_weight = val;
+	update_colors();
+}
+
+function init()
+{
+	document.getElementById("red").oninput = update_colors;
+	document.getElementById("green").oninput = update_colors;
+	document.getElementById("blue").oninput = update_colors;
+
+	document.getElementById("red_weight").oninput = update_red_weight;
+	document.getElementById("blue_weight").oninput = update_blue_weight;
+	update_colors();
+	update_red_weight();
+	update_blue_weight();
+}
+</script>
+
+</head>
+
+<body onload="init()">
+<div id="app">
+<h1>An intensity-preserving color-picker</h1>
+<h2>Calibrate factors for red and blue</h2>
+<p>Move the sliders so that the text becomes as hard to read as possible.</p>
+<table id="cal">
+<tr>
+	<td class="red" id="cal_red">Make this text hard to read</td>
+	<td class="blue" id="cal_blue">Make this text hard to read</td>
+</tr>
+<tr>
+	<td><input type="range" min="0" max="1023" id="red_weight"></td>
+	<td><input type="range" min="0" max="1023" id="blue_weight"></td>
+</tr>
+<tr>
+	<td><input type="text" id="red_weight_val"></td>
+	<td><input type="text" id="blue_weight_val"></td>
+</tr>
+</table>
+
+<h2>Try to pick a color</h2>
+<p>Below is a color picker. In theory, the text should be equally visible with both black and white background.</p>
+<table id="preview">
+<tr>
+<td class="dark">This text is displayed in dark mode</td>
+<td class="light">This text is displayed in light mode</td>
+<td class="gray">This text should be hard to read</td>
+</tr>
+</table>
+
+<table>
+<tr><th></th><th>Input</th><th>Linear RGB value</th><th>8-bit γ = 2.2</th><tr>
+<tr><td>R</td><td><input type="range" min="0" max="1023" id="red"></td><td><input type="text" id="red_val"></td><td><input type="text" id="red_gamma_val"></td></tr>
+<tr><td>G</td><td><input type="range" min="0" max="1023" id="green"></td><td><input type="text" id="green_val"></td><td><input type="text" id="green_gamma_val"></td></tr>
+<tr><td>B</td><td><input type="range" min="0" max="1023" id="blue"></td><td><input type="text" id="blue_val"></td><td><input type="text" id="blue_gamma_val"></td></tr>
+<tr><td colspan="2">Perceived intensity (set to one):</td><td><input type="text" id="intensity"></td></tr>
+</table>
+</div>
+
+</body>
+</html>
